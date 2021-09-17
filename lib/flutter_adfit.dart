@@ -4,11 +4,12 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 
-///
-///
-///
+/// AdFitSDK 에서 제공하는 Banner size
 class AdFitBannerSize {
+  /// Banner width
   final int width;
+
+  /// Banner height
   final int height;
 
   const AdFitBannerSize._(this.width, this.height);
@@ -18,64 +19,97 @@ class AdFitBannerSize {
   static const AdFitBannerSize SMALL_BANNER = AdFitBannerSize._(320, 50);
 }
 
-///
-///
-///
+/// [AdFitEvent] callback
 typedef OnAdFitEvent = Function(AdFitEvent event, AdFitEventData data);
+
+/// [OnAdFitEvent] callback 에 사용되는 event type
 enum AdFitEvent {
+  /// 배너 광고 노출 완료 시
   AdReceived,
+
+  /// 배너 광고 클릭 시
   AdClicked,
+
+  /// 배너 광고 노출 실패 시 (AdFitSDK 에러 메시지)
   AdReceiveFailed,
+
+  /// 패키지 내부에서 에러 발생 시
   OnError,
 }
 
+/// [OnAdFitEvent] callback 에 사용되는 event data
 class AdFitEventData {
+  /// Event type
+  final AdFitEvent event;
+
+  /// 호출된 ad Id
   final String adId;
+
+  /// Event message
   final String message;
 
-  AdFitEventData({this.adId, this.message});
+  /// Default constructor
+  const AdFitEventData._(this.event, this.adId, this.message);
+
+  factory AdFitEventData._build(dynamic data) {
+    AdFitEvent event;
+    if (data is Map<String, dynamic>) {
+      String eventName = data["event"];
+      switch (eventName) {
+        case "didReceiveAd":
+          event = AdFitEvent.AdReceived;
+          break;
+        case "didClickAd":
+          event = AdFitEvent.AdClicked;
+          break;
+        case "didFailToReceive":
+          event = AdFitEvent.AdReceiveFailed;
+          break;
+        case "onError":
+          event = AdFitEvent.OnError;
+          break;
+        default:
+          return null;
+      }
+      return AdFitEventData._(event, data["adId"], data["message"]);
+    }
+    return null;
+  }
 
   @override
   String toString() {
-    return 'AdFitEventData{adId: $adId, message: $message}';
+    return 'AdFitEventData{event: $event, adId: $adId, message: $message}';
   }
 }
 
-///
-///
-///
 class AdFitBanner extends StatefulWidget {
-  final String androidAdId;
-  final String iosAdId;
-  // final String webAdId;
+  final String adId;
   final AdFitBannerSize adSize;
+
+  /// [AdFitEvent] callback.
+  /// Function([AdFitEvent] event, [AdFitEventData] data) { ... }
   final OnAdFitEvent listener;
-  final bool fillParent;
+
+  /// true 시, ListView 등에서 광고 로드 재호출 방지
+  /// (default true)
   final bool wantKeepAlive;
 
+  /// (Test)
+  /// true 시, 상위 위젯 사이즈만큼 비율 유지하여 확대
+  /// (default false, AdFitSDK 정책 검토 필요)
+  final bool fillParent;
+
   AdFitBanner({
-    this.androidAdId,
-    this.iosAdId,
-    // this.webAdId,
+    @required this.adId,
     this.adSize: AdFitBannerSize.BANNER,
     this.listener,
-    this.fillParent: false,
     this.wantKeepAlive: true,
+    this.fillParent: false,
     Key key,
   }) : super(key: key);
 
   @override
   _AdFitBannerState createState() => _AdFitBannerState();
-
-  String get adId {
-    if (Platform.isAndroid) {
-      return androidAdId ?? '';
-    }
-    if (Platform.isIOS) {
-      return iosAdId ?? '';
-    }
-    return '';
-  }
 }
 
 class _AdFitBannerState extends State<AdFitBanner>
@@ -106,7 +140,7 @@ class _AdFitBannerState extends State<AdFitBanner>
     super.build(context);
     if (Platform.isAndroid || Platform.isIOS) {
       return LayoutBuilder(builder: (_, constraint) {
-        double scale = getScale(constraint, widget.adSize);
+        double scale = _getScale(constraint, widget.adSize);
         if (1.0 < scale)
           return Transform.scale(
             scale: scale,
@@ -122,7 +156,8 @@ class _AdFitBannerState extends State<AdFitBanner>
     return Container();
   }
 
-  double getScale(BoxConstraints constraints, AdFitBannerSize adSize) {
+  /// scale 여부 체크 및 scale factor 리턴 (min 1.0 : scale 축소 방지)
+  double _getScale(BoxConstraints constraints, AdFitBannerSize adSize) {
     double scale = 1.0;
     if (widget.fillParent == true) {
       Size constraintSize = constraints.biggest;
@@ -184,29 +219,9 @@ class _AdFitBannerState extends State<AdFitBanner>
   }
 
   void _processNativeEvent(dynamic data) async {
-    if (data is Map<String, dynamic>) {
-      String eventName = data["event"];
-      AdFitEvent event;
-      AdFitEventData eventData =
-          AdFitEventData(adId: data["adId"], message: data["message"]);
-
-      switch (eventName) {
-        case "didReceiveAd":
-          event = AdFitEvent.AdReceived;
-          break;
-        case "didClickAd":
-          event = AdFitEvent.AdClicked;
-          break;
-        case "didFailToReceive":
-          event = AdFitEvent.AdReceiveFailed;
-          break;
-        case "onError":
-          event = AdFitEvent.OnError;
-          break;
-        default:
-          return;
-      }
-      widget.listener?.call(event, eventData);
+    AdFitEventData eventData = AdFitEventData._build(data);
+    if (eventData?.event != null) {
+      widget.listener?.call(eventData.event, eventData);
     }
   }
 }

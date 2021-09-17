@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_adfit/flutter_adfit.dart';
 
@@ -25,11 +27,14 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(title: const Text('AdFit example app')),
         body: Center(
           child: AdFitBanner(
-            iosAdId: "<IOS_AD_ID>",
-            androidAdId: "<ANDROID_AD_ID>",
+            adId: Platform.isIOS
+                ? '<IOS_AD_ID>'
+                : Platform.isAndroid
+                    ? '<ANDROID_AD_ID>'
+                    : '',
             adSize: AdFitBannerSize.BANNER,
-            fillParent: true,
-            listener: (event, data) {
+            listener: (AdFitEvent event, AdFitEventData data) {
+              print('$event, $data');
               switch (event) {
                 case AdFitEvent.AdReceived:
                   break;
