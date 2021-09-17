@@ -1,0 +1,29 @@
+PODS:
+  - AdFitSDK (3.8.5)
+  - Flutter (1.0.0)
+  - flutter_adfit (0.0.1):
+    - AdFitSDK (~> 3.8.5)
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_adfit (from `.symlinks/plugins/flutter_adfit/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AdFitSDK
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_adfit:
+    :path: ".symlinks/plugins/flutter_adfit/ios"
+
+SPEC CHECKSUMS:
+  AdFitSDK: e48413a3a7a4a8e9c7e9b51b21e6cec42b7ac039
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_adfit: c1627f68f4f737629a5e6b420c0f9df534c8e896
+
+PODFILE CHECKSUM: fc81e398f362bae88bdf55239bd5cf842faad39f
+
+COCOAPODS: 1.11.0
