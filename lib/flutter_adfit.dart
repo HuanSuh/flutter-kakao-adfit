@@ -30,8 +30,8 @@ enum AdFitEvent {
 }
 
 class AdFitEventData {
-  final String adId;
-  final String message;
+  final String? adId;
+  final String? message;
 
   AdFitEventData({this.adId, this.message});
 
@@ -45,23 +45,23 @@ class AdFitEventData {
 ///
 ///
 class AdFitBanner extends StatefulWidget {
-  final String androidAdId;
-  final String iosAdId;
+  final String? androidAdId;
+  final String? iosAdId;
   // final String webAdId;
   final AdFitBannerSize adSize;
-  final OnAdFitEvent listener;
+  final OnAdFitEvent? listener;
   final bool fillParent;
   final bool wantKeepAlive;
 
-  AdFitBanner({
+  const AdFitBanner({
     this.androidAdId,
     this.iosAdId,
     // this.webAdId,
-    this.adSize: AdFitBannerSize.BANNER,
+    this.adSize = AdFitBannerSize.BANNER,
     this.listener,
-    this.fillParent: false,
-    this.wantKeepAlive: true,
-    Key key,
+    this.fillParent = false,
+    this.wantKeepAlive = true,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -83,7 +83,7 @@ class _AdFitBannerState extends State<AdFitBanner>
   @override
   bool get wantKeepAlive => widget.wantKeepAlive;
 
-  MethodChannel _channel;
+  late MethodChannel _channel;
 
   @override
   void didUpdateWidget(AdFitBanner oldWidget) {
@@ -107,11 +107,12 @@ class _AdFitBannerState extends State<AdFitBanner>
     if (Platform.isAndroid || Platform.isIOS) {
       return LayoutBuilder(builder: (_, constraint) {
         double scale = getScale(constraint, widget.adSize);
-        if (1.0 < scale)
+        if (1.0 < scale) {
           return Transform.scale(
             scale: scale,
             child: _buildAdView(),
           );
+        }
         return _buildAdView();
       });
     }
@@ -139,7 +140,7 @@ class _AdFitBannerState extends State<AdFitBanner>
 
   Widget _buildAdView() {
     if (Platform.isAndroid) {
-      return Container(
+      return SizedBox(
         width: widget.adSize.width * 1.0,
         height: widget.adSize.height * 1.0,
         child: AndroidView(
@@ -154,7 +155,7 @@ class _AdFitBannerState extends State<AdFitBanner>
         ),
       );
     } else if (Platform.isIOS) {
-      return Container(
+      return SizedBox(
         width: widget.adSize.width * 1.0,
         height: widget.adSize.height * 1.0,
         child: UiKitView(
