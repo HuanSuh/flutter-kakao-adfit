@@ -2,17 +2,17 @@
   
 카카오애드핏에서 제공하는 광고 배너 뷰를 구현한 패키지입니다.
 * 본 패키지는 카카오애드핏에서 정식 제공하는 플러그인이 아닙니다.
-* 카카오애드핏에서 제공하는 광고에 대한 자세한 사항은 [AdFit 플랫폼](http://adfit.kakao.com/)에서 확인하세요
+* 카카오애드핏에서 제공하는 광고에 대한 자세한 사항은 [AdFit 플랫폼](https://adfit.kakao.com/)에서 확인하세요
 
-- [x]  android
-- [x] iOS
-- [ ] web
+`✅ android`  `✅ iOS`
+
+`web` (not yet)
 
   
 ## Getting Started  
 
 ### 1.  광고단위ID(Client ID) 발급받기
-광고를 수신하기 위해서는 먼저 [AdFit 플랫폼](http://adfit.kakao.com/)에서 앱을 등록하고 광고단위 ID(Client ID)를 발급받아야 합니다. 아래의 웹 사이트에서 앱을 등록하고 광고단위 ID를 발급 받을 수 있습니다. AdFit 플랫폼 : [](http://adfit.kakao.com/)[http://adfit.kakao.com](http://adfit.kakao.com)
+광고를 수신하기 위해서는 먼저 [AdFit 플랫폼](https://adfit.kakao.com/)에서 앱을 등록하고 광고단위 ID(Client ID)를 발급받아야 합니다. 아래의 웹 사이트에서 앱을 등록하고 광고단위 ID를 발급 받을 수 있습니다. AdFit 플랫폼 : [](https://adfit.kakao.com/)[https://adfit.kakao.com](https://adfit.kakao.com)
 
 
 ### 2. 프로젝트 설정하기
@@ -77,10 +77,10 @@ c) ATT(App Tracking Transparency) framework 적용 (iOS 14 이상)
 import 'package:flutter_adfit/flutter_adfit.dart';
 
 AdFitBanner(  
-  iosAdId: "<IOS_AD_ID>",  
-  androidAdId: "<ANDROID_AD_ID>",  
+  adId: Platform.isIOS ? '<IOS_AD_ID>'
+        : Platform.isAndroid ? '<ANDROID_AD_ID>' : '',
   adSize: AdFitBannerSize.BANNER,  
-  listener: (event, data) {  
+  listener: (AdFitEvent event, AdFitEventData data) {  
     switch (event) {  
 		case AdFitEvent.AdReceived:  
 	        break;  
