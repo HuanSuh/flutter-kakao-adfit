@@ -146,9 +146,14 @@ class _AdFitBannerState extends State<AdFitBanner>
       return LayoutBuilder(builder: (_, constraint) {
         double scale = _getScale(constraint, widget.adSize);
         if (1.0 < scale) {
-          return Transform.scale(
-            scale: scale,
-            child: _buildAdView(),
+          return Container(
+            alignment: Alignment.center,
+            width: widget.adSize.width * scale,
+            height: widget.adSize.height * scale,
+            child: Transform.scale(
+              scale: scale,
+              child: _buildAdView(),
+            ),
           );
         }
         return _buildAdView();
