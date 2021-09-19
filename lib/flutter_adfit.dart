@@ -141,11 +141,17 @@ class _AdFitBannerState extends State<AdFitBanner>
     if (Platform.isAndroid || Platform.isIOS) {
       return LayoutBuilder(builder: (_, constraint) {
         double scale = _getScale(constraint, widget.adSize);
-        if (1.0 < scale)
-          return Transform.scale(
-            scale: scale,
-            child: _buildAdView(),
+        if (1.0 < scale) {
+          return Container(
+            alignment: Alignment.center,
+            width: widget.adSize.width * scale,
+            height: widget.adSize.height * scale,
+            child: Transform.scale(
+              scale: scale,
+              child: _buildAdView(),
+            ),
           );
+        }
         return _buildAdView();
       });
     }
@@ -174,7 +180,7 @@ class _AdFitBannerState extends State<AdFitBanner>
 
   Widget _buildAdView() {
     if (Platform.isAndroid) {
-      return Container(
+      return SizedBox(
         width: widget.adSize.width * 1.0,
         height: widget.adSize.height * 1.0,
         child: AndroidView(
@@ -189,7 +195,7 @@ class _AdFitBannerState extends State<AdFitBanner>
         ),
       );
     } else if (Platform.isIOS) {
-      return Container(
+      return SizedBox(
         width: widget.adSize.width * 1.0,
         height: widget.adSize.height * 1.0,
         child: UiKitView(
