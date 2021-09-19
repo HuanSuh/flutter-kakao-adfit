@@ -4,9 +4,9 @@
 * 본 패키지는 카카오애드핏에서 정식 제공하는 플러그인이 아닙니다.
 * 카카오애드핏에서 제공하는 광고에 대한 자세한 사항은 [AdFit 플랫폼](https://adfit.kakao.com/)에서 확인하세요
 
-✅ android
-✅ iOS
-❌ web (not yet)
+`✅ android`  `✅ iOS`
+
+`web` (not yet)
 
   
 ## Getting Started  
