@@ -1,5 +1,5 @@
 name: flutter_adfit
-description: AdFit package for Flutter.
+description: A flutter package for AdFitSDK provided by kakaoAdFit. (non-official)
 version: 1.0.0
 homepage: https://github.com/HuanSuh/flutter-kakao-adfit
 
