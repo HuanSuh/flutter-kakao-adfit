@@ -105,7 +105,7 @@ class NativeAdView: NSObject, FlutterPlugin, FlutterStreamHandler, FlutterPlatfo
             }
         }
         
-        self.flutterEventSink?(["event":"onError", "message": "Invalid arguments : \(args)"])
+        self.flutterEventSink?(["event":"onError", "message": "Invalid arguments : \(String(describing: args))"])
     }
     
     private func loadAd() {

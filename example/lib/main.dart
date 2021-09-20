@@ -28,9 +28,9 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: AdFitBanner(
             adId: Platform.isIOS
-                ? '<IOS_AD_ID>' //'DAN-Gi8P9eeTSnY2q9qz'
+                ? '<IOS_AD_ID>'
                 : Platform.isAndroid
-                    ? '<ANDROID_AD_ID>' //'DAN-uFoOKTtCFKzo6dTm'
+                    ? '<ANDROID_AD_ID>'
                     : '',
             adSize: AdFitBannerSize.BANNER,
             listener: (AdFitEvent event, AdFitEventData data) {
