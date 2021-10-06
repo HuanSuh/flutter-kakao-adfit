@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_adfit'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'AdFit package for Flutter.'
   s.description      = <<-DESC
   s.dependency 'AdFitSDK'
@@ -17,7 +17,7 @@ AdFit package for Flutter.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'AdFitSDK', '~> 3.8.5'
+  s.dependency 'AdFitSDK', '~> 3.11.1'
   s.platform = :ios, '8.0'
 
   # Flutter.framework does not contain a i386 slice.
