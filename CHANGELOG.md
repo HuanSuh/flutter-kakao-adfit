@@ -1,3 +1,9 @@
+## [1.1.1] - Feb 15, 2022
+* iOS AdFitSDK 3.11.5 대응
+  - xcode13 스테이터스바 이상 현상 수정
+* iOS emulator 동작 (EXCLUDED_ARCHS : arm64 추가)
+* src 파일 구조 변경
+  
 ## [1.1.0] - Sep 20, 2021
 * iOS AdFitSDK 3.11.1 대응
   - xcode 13 대응
