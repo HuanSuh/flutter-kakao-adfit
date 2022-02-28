@@ -1,3 +1,7 @@
+## [1.1.2] - Feb 28, 2022
+* Exception handling
+  - mounted check
+
 ## [1.1.1] - Feb 15, 2022
 * iOS AdFitSDK 3.11.5 대응
   - xcode13 스테이터스바 이상 현상 수정
