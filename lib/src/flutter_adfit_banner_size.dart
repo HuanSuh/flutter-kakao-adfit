@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 part of flutter_adfit;
 
 /// AdFitSDK 에서 제공하는 Banner size

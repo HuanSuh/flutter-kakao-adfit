@@ -33,14 +33,15 @@ class AdFitBanner extends StatefulWidget {
   _AdFitBannerState createState() => _AdFitBannerState();
 }
 
-class _AdFitBannerState extends State<AdFitBanner>
-    with AutomaticKeepAliveClientMixin {
+class _AdFitBannerState extends State<AdFitBanner> with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => widget.wantKeepAlive;
 
   late MethodChannel _channel;
   bool? _visible;
+
   bool get _isVisible => _visible != false;
+
   set visible(bool? value) {
     if (_visible != value) {
       _visible = value;
@@ -74,30 +75,19 @@ class _AdFitBannerState extends State<AdFitBanner>
       return LayoutBuilder(builder: (_, constraint) {
         double scale = _getScale(constraint, widget.adSize);
         return Visibility(
-            visible: _isVisible,
-            child: (1.0 != scale)
-                ? Container(
-                    alignment: Alignment.center,
-                    width: widget.adSize.width * scale,
-                    height: widget.adSize.height * scale,
-                    child: Transform.scale(
-                      scale: scale,
-                      child: _buildAdView(),
-                    ),
-                  )
-                : _buildAdView());
-        if (1.0 < scale) {
-          return Container(
-            alignment: Alignment.center,
-            width: widget.adSize.width * scale,
-            height: widget.adSize.height * scale,
-            child: Transform.scale(
-              scale: scale,
-              child: _buildAdView(),
-            ),
-          );
-        }
-        return _buildAdView();
+          visible: _isVisible,
+          child: (1.0 != scale)
+              ? Container(
+                  alignment: Alignment.center,
+                  width: widget.adSize.width * scale,
+                  height: widget.adSize.height * scale,
+                  child: Transform.scale(
+                    scale: scale,
+                    child: _buildAdView(),
+                  ),
+                )
+              : _buildAdView(),
+        );
       });
     }
     debugPrint(
@@ -113,8 +103,7 @@ class _AdFitBannerState extends State<AdFitBanner>
     double scale = 1.0;
     if (widget.fillParent == true) {
       Size constraintSize = constraints.biggest;
-      if (adSize.width <= constraintSize.width &&
-          adSize.height <= constraintSize.height) {
+      if (adSize.width <= constraintSize.width && adSize.height <= constraintSize.height) {
         scale = min(
           constraintSize.width / adSize.width,
           constraintSize.height / adSize.height,
@@ -165,8 +154,7 @@ class _AdFitBannerState extends State<AdFitBanner>
   }
 
   void _listenForNativeEvents(int viewId) {
-    EventChannel eventChannel =
-        EventChannel("flutter_adfit_event_$viewId", const JSONMethodCodec());
+    EventChannel eventChannel = EventChannel("flutter_adfit_event_$viewId", const JSONMethodCodec());
     eventChannel.receiveBroadcastStream().listen(_processNativeEvent);
   }
 
@@ -185,6 +173,8 @@ class _AdFitBannerState extends State<AdFitBanner>
         case AdFitEvent.OnError:
           visible = false;
           break;
+        case null:
+          return;
       }
       widget.listener?.call(eventData.event!, eventData);
     }
