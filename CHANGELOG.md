@@ -1,3 +1,7 @@
+## [1.2.0] - Jan 11, 2024
+* Android Build 이슈 대응
+* Android AdFitSDK 3.15.2 대응
+
 ## [1.1.2] - Feb 28, 2022
 * Exception handling
   - mounted check

@@ -15,9 +15,9 @@ import io.flutter.plugin.platform.PlatformView
 import org.json.JSONException
 import org.json.JSONObject
 
-class NativeAdView(private val context: Context, messenger: BinaryMessenger?, viewId: Int, arguments: Any)
+class NativeAdView(context: Context, messenger: BinaryMessenger, viewId: Int, arguments: Any?)
     : PlatformView, EventChannel.StreamHandler, MethodCallHandler {
-    private var adView: BannerAdView? = null
+    private var adView: BannerAdView = BannerAdView(context)
     private var eventSink: EventSink? = null
     private var methodChannel: MethodChannel? = null
 
@@ -37,11 +37,9 @@ class NativeAdView(private val context: Context, messenger: BinaryMessenger?, vi
 
     private fun loadAd(args: JSONObject) {
         val adId = args.getString("adId")
-        adView?.destroy()
-        adView = null
-        adView = BannerAdView(context).let {
-            it.setClientId(adId)  // 할당
-            it.setAdListener(object : AdListener {
+        with(adView) {
+            setClientId(adId)  // 할당
+            setAdListener(object : AdListener {
                 // optional :: 광고 수신 리스너 설정
                 // 배너 광고 노출 완료 시 호출
                 override fun onAdLoaded() {
@@ -58,12 +56,11 @@ class NativeAdView(private val context: Context, messenger: BinaryMessenger?, vi
                     callback("didClickAd", adId)
                 }
             })
-            it.loadAd()
-            it
+            loadAd()
         }
 
 
-        // activity 또는 fragment의 lifecycle에 따라 호출
+//        // activity 또는 fragment의 lifecycle에 따라 호출
 //        lifecycle.addObserver(object : LifecycleObserver {
 //            @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
 //            fun onResume() {
@@ -109,11 +106,11 @@ class NativeAdView(private val context: Context, messenger: BinaryMessenger?, vi
     }
 
     override fun getView(): View {
-        return adView!!
+        return adView
     }
 
     override fun dispose() {
-        adView?.destroy()
+        adView.destroy()
         methodChannel?.setMethodCallHandler(null)
     }
 

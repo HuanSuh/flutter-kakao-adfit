@@ -19,12 +19,6 @@ class FlutterAdfitPlugin: FlutterPlugin, ActivityAware {
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
     adViewFactory = AdViewFactory.registerWith(flutterPluginBinding)
   }
-  companion object {
-    @JvmStatic
-    fun registerWith(registrar: Registrar) {
-      AdViewFactory.registerWith(registrar)
-    }
-  }
 
   override fun onDetachedFromEngine(@NonNull binding: FlutterPlugin.FlutterPluginBinding) {
     adViewFactory.onDestroy()
