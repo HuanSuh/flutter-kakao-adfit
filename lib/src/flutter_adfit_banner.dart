@@ -43,7 +43,10 @@ class _AdFitBannerState extends State<AdFitBanner>
   bool get _isVisible => _visible != false;
   set visible(bool? value) {
     if (_visible != value) {
-      setState(() => _visible = value);
+      _visible = value;
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
