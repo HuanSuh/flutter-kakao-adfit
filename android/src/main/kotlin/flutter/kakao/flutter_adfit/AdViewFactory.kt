@@ -12,15 +12,14 @@ class AdViewFactory
     : PlatformViewFactory(JSONMessageCodec.INSTANCE) {
 
     lateinit var activity: Activity
-    private lateinit var adView: NativeAdView
+    private var adView: NativeAdView? = null
 
     override fun create(context: Context?, id: Int, args: Any?): NativeAdView {
-        adView = NativeAdView(activity, messenger, id, args)
-        return adView
+        return NativeAdView(activity, messenger, id, args).also { adView = it }
     }
 
     fun onDestroy() {
-        adView.dispose()
+        adView?.dispose()
     }
 
     companion object {
@@ -34,6 +33,4 @@ class AdViewFactory
             return plugin
         }
     }
-
-
 }
