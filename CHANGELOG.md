@@ -1,3 +1,6 @@
+## [1.2.1] - Feb 28, 2024
+* (hotfix) Android dispose 이슈 대응
+
 ## [1.2.0] - Jan 11, 2024
 * Android Build 이슈 대응
 * Android AdFitSDK 3.15.2 대응
