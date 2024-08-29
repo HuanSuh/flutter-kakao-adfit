@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-part of flutter_adfit;
+part of '../flutter_adfit.dart';
 
 /// [AdFitEvent] callback
 typedef OnAdFitEvent = Function(AdFitEvent event, AdFitEventData data);

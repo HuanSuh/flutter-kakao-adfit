@@ -1,4 +1,4 @@
-part of flutter_adfit;
+part of '../flutter_adfit.dart';
 
 class AdFitBanner extends StatefulWidget {
   final String adId;
@@ -30,7 +30,7 @@ class AdFitBanner extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AdFitBannerState createState() => _AdFitBannerState();
+  State<AdFitBanner> createState() => _AdFitBannerState();
 }
 
 class _AdFitBannerState extends State<AdFitBanner> with AutomaticKeepAliveClientMixin {
@@ -38,6 +38,7 @@ class _AdFitBannerState extends State<AdFitBanner> with AutomaticKeepAliveClient
   bool get wantKeepAlive => widget.wantKeepAlive;
 
   late MethodChannel _channel;
+  late final String _viewType = 'flutter.kakao.adfit/AdFitView${widget.adSize.isNative ? '/native' : ''}';
   bool? _visible;
 
   bool get _isVisible => _visible != false;
@@ -119,7 +120,7 @@ class _AdFitBannerState extends State<AdFitBanner> with AutomaticKeepAliveClient
         width: widget.adSize.width * 1.0,
         height: widget.adSize.height * 1.0,
         child: AndroidView(
-          viewType: 'flutter.kakao.adfit/AdFitView',
+          viewType: _viewType,
           creationParams: {
             "adId": widget.adId,
             "width": widget.adSize.width,
@@ -134,7 +135,7 @@ class _AdFitBannerState extends State<AdFitBanner> with AutomaticKeepAliveClient
         width: widget.adSize.width * 1.0,
         height: widget.adSize.height * 1.0,
         child: UiKitView(
-          viewType: 'flutter.kakao.adfit/AdFitView',
+          viewType: _viewType,
           creationParams: {
             "adId": widget.adId,
             "width": widget.adSize.width,
