@@ -3,7 +3,7 @@ description: Demonstrates how to use the flutter_adfit plugin.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
   flutter:
@@ -14,9 +14,24 @@ dependencies:
 
   cupertino_icons: ^1.0.0
 
+  path:
+  path_provider:
+
+  webview_flutter:
+  webview_flutter_wkwebview:
+  webview_flutter_android:
+
+  flutter_inappwebview:
+  flutter_inappwebview_ios:
+  flutter_inappwebview_android:
+  flutter_inappwebview_platform_interface:
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dependency_overrides:
+  webview_flutter_android: 3.16.7
 
 flutter:
   uses-material-design: true

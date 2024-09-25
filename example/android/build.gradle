@@ -16,6 +16,11 @@ allprojects {
         google()
         mavenCentral()
     }
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.webkit:webkit:1.8.0'
+        }
+    }
 }
 
 rootProject.buildDir = '../build'
