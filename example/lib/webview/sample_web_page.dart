@@ -6,11 +6,13 @@ import 'package:path_provider/path_provider.dart';
 class SampleWebPage {
   static String buildData() {
     return """
+---
 <ins class="kakao_ad_area" style="display:none;width:100%;"  
-data-ad-unit="AD-ID" 
-data-ad-width="250" 
-data-ad-height="200" 
+data-ad-unit="DAN-rfHXV2nsaOBFpl7T" 
+data-ad-width="320" 
+data-ad-height="50" 
 data-ad-onfail="callBackFunc"></ins>
+---
 <script type="text/javascript" src="https://t1.daumcdn.net/kas/static/ba.min.js" async></script>
 """;
   }

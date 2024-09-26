@@ -19,7 +19,9 @@ class _WebViewFlutterPageState extends State<WebViewFlutterPage> {
     SampleWebPage.build().then((uri) {
       _controller.loadFile(uri.toFilePath());
     });
-    FlutterAdFit.instance.registerWebViewFlutter(_controller);
+    FlutterAdFit.instance.registerWebViewFlutter(_controller).catchError((e) {
+      print(e);
+    });
     _controller.setOnConsoleMessage((msg) {
       print(msg);
     });

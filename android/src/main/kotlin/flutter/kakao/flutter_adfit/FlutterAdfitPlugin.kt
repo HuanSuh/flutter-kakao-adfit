@@ -39,14 +39,27 @@ class FlutterAdfitPlugin : FlutterPlugin, ActivityAware, MethodCallHandler {
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "registerInAppWebView" -> {
-                val windowId: Int = call.argument<Int>("webViewId")?.let {
+                val windowId: String = call.argument<String>("webViewId")?.let {
                     return@let it
                 } ?: run {
                     result.error("400", "Invalid windowId : ${call.arguments}", null)
                     return
                 }
-//                AdFitSdk.register(webViewId, pluginBinding?.getFlutterEngine())
-                result.success(windowId)
+                WebViewFinder.findInAppWebView(pluginBinding?.flutterEngine, windowId)
+                    ?.let { webView ->
+                        // 3자 쿠키 사용 설정 허용
+                        CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
+                        // JavaScript 사용 설정
+                        webView.settings.javaScriptEnabled = true
+                        // Local Storage 사용 설정
+                        webView.settings.domStorageEnabled = true
+                        // 비디오 자동 재생 허용 설정
+                        webView.settings.mediaPlaybackRequiresUserGesture = false
+                        val registered = AdFitSdk.register(webView)
+                        result.success(registered)
+                    } ?: run {
+                    result.error("401", "Failed to find webView", "")
+                }
             }
 
             "registerWebViewFlutter" -> {
