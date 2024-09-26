@@ -1,29 +1,56 @@
 PODS:
-  - AdFitSDK (3.11.5)
+  - AdFitSDK (3.14.5)
   - Flutter (1.0.0)
-  - flutter_adfit (0.0.3):
-    - AdFitSDK (~> 3.11.5)
+  - flutter_adfit (0.1.0):
+    - AdFitSDK (~> 3.14.2)
+    - Flutter
+  - flutter_inappwebview_ios (0.0.1):
+    - Flutter
+    - flutter_inappwebview_ios/Core (= 0.0.1)
+    - OrderedSet (~> 6.0.3)
+  - flutter_inappwebview_ios/Core (0.0.1):
+    - Flutter
+    - OrderedSet (~> 6.0.3)
+  - OrderedSet (6.0.3)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
+  - webview_flutter_wkwebview (0.0.1):
     - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - flutter_adfit (from `.symlinks/plugins/flutter_adfit/ios`)
+  - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
+  - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
 
 SPEC REPOS:
   trunk:
     - AdFitSDK
+    - OrderedSet
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
   flutter_adfit:
     :path: ".symlinks/plugins/flutter_adfit/ios"
+  flutter_inappwebview_ios:
+    :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
+  webview_flutter_wkwebview:
+    :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
 
 SPEC CHECKSUMS:
-  AdFitSDK: 6ca77efc6a66a18d65a96c8f332e972f6020d96a
-  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
-  flutter_adfit: 3a891eb3f7fd899baad1fd38db32b8dcc6d2351b
+  AdFitSDK: 421ea48b024d6274ea23d81d188457a21e6348ef
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  flutter_adfit: 0e9bee7b81dc49849a07ff9f305e166977e012a4
+  flutter_inappwebview_ios: 6f63631e2c62a7c350263b13fa5427aedefe81d4
+  OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
+  path_provider_foundation: 2b6b4c569c0fb62ec74538f866245ac84301af46
+  webview_flutter_wkwebview: 2a23822e9039b7b1bc52e5add778e5d89ad488d1
 
-PODFILE CHECKSUM: 5abfbef0f555f3a8380a8b15ea6a2f9a8c7557de
+PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.14.3

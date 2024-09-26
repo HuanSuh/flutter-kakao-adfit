@@ -4,7 +4,7 @@ version: 1.2.1
 homepage: https://github.com/HuanSuh/flutter-kakao-adfit
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.5.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -15,7 +15,7 @@ dependencies:
   webview_flutter_android:
 
   flutter_inappwebview:
-  flutter_inappwebview_ios:
+  flutter_inappwebview_ios: 1.1.0+1
   flutter_inappwebview_android:
   flutter_inappwebview_platform_interface:
 
